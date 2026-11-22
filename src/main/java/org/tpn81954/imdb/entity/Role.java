@@ -6,25 +6,25 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "roles")
+@Table(name = "roles",
+        uniqueConstraints = @UniqueConstraint(columnNames = {"actor_id", "movie_id", "role"}))
 @Getter
 @Setter
 @NoArgsConstructor
 public class Role {
 
-    @EmbeddedId
-    private RoleId id = new RoleId();
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-    @ManyToOne
-    @MapsId("actorId")
+    @Column(name = "role", nullable = false)   // empty is allowed, null is not
+    private String characterName;
+
+    @ManyToOne(optional = false)
     @JoinColumn(name = "actor_id")
     private Actor actor;
 
-    @ManyToOne
-    @MapsId("movieId")
+    @ManyToOne(optional = false)
     @JoinColumn(name = "movie_id")
     private Movie movie;
-
-    @Column(name = "role", length = 255)
-    private String role;
 }

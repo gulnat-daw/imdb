@@ -46,7 +46,11 @@ public class Movie {
     )
     private Set<Genre> genres = new HashSet<>();
 
-    @OneToMany(mappedBy = "movie")
+    // Deleting a movie deletes its cast and comments
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Role> roles = new HashSet<>();
+
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Comment> comments = new HashSet<>();
 
 }

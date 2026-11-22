@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.tpn81954.imdb.enumerated.Gender;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -25,8 +26,9 @@ public class Actor {
     @Column(name = "last_name", length = 100)
     private String lastName;
 
+    @Enumerated(EnumType.STRING)
     @Column(length = 1)
-    private String gender;
+    private Gender gender;
 
     @OneToMany(mappedBy = "actor")
     private Set<Role> roles = new HashSet<>();
